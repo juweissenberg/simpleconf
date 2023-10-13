@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	"github.com/juweissenberg/simpleconf/pkg/env"
-	ass "gotest.tools/v3/assert"
+	"gotest.tools/v3/assert"
 	envtools "gotest.tools/v3/env"
 )
 
@@ -21,33 +21,33 @@ func _TestEnv(t *testing.T) {
 	var testInt64 int64
 	{
 		err := env.Int64Var(&testInt64, testInt64EnvName)
-		ass.NilError(t, err)
+		assert.NilError(t, err)
 	}
 
 	var testString string
 	{
 		err := env.StringVar(&testString, testStringEnvName)
-		ass.NilError(t, err)
+		assert.NilError(t, err)
 	}
 
 	err := env.Parse()
-	ass.NilError(t, err)
-	ass.Assert(t, env.Parsed())
+	assert.NilError(t, err)
+	assert.Assert(t, env.Parsed())
 
 	{
 		isSet, err := env.IsSet(testInt64EnvName)
-		ass.NilError(t, err)
-		ass.Assert(t, isSet)
+		assert.NilError(t, err)
+		assert.Assert(t, isSet)
 	}
 
 	{
 		isSet, err := env.IsSet(testStringEnvName)
-		ass.NilError(t, err)
-		ass.Assert(t, isSet)
+		assert.NilError(t, err)
+		assert.Assert(t, isSet)
 	}
 
-	ass.Equal(t, testInt64, testInt64EnvValue)
-	ass.Equal(t, testString, testStringEnvValue)
+	assert.Equal(t, testInt64, testInt64EnvValue)
+	assert.Equal(t, testString, testStringEnvValue)
 }
 
 func TestEnv(t *testing.T) {
@@ -90,7 +90,7 @@ func TestEnvWithErrors(t *testing.T) {
 	var testInt64 int64
 	{
 		err := env.Int64Var(&testInt64, testInt64EnvName)
-		ass.NilError(t, err)
+		assert.NilError(t, err)
 	}
 
 	var testInt64IllegalName int64
@@ -104,7 +104,7 @@ func TestEnvWithErrors(t *testing.T) {
 	var testInt64DefinedTwice int64
 	{
 		err := env.Int64Var(&testInt64DefinedTwice, "DUPLICATE")
-		ass.NilError(t, err)
+		assert.NilError(t, err)
 		err = env.Int64Var(&testInt64DefinedTwice, "DUPLICATE")
 		if err == nil {
 			t.FailNow()
